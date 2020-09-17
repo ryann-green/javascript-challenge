@@ -10,32 +10,40 @@ let form = d3.select("#form");
 // create a reference to the table body
 let tbody = d3.select("tbody");
 
+// create a reference to the table
+let table=d3.select("#ufo-table tr");
+
+
 // Create event handlers 
 button.on("click", runEnter);
 form.on("submit",runEnter);
 
+
 // Complete the event handler function for the form
 function runEnter() {
 
-        // Prevent the page from refreshing
-        d3.event.preventDefault();
+    let rows = d3.selectAll("tr");
+    rows.remove();
 
-        // Select the input element and get the raw HTML node
-        let inputElement = d3.select("#datetime");
+    // Prevent the page from refreshing
+    d3.event.preventDefault() ;
 
-        // Get the value property of the input element
-        let inputValue = inputElement.property("value");
+    // Select the input element and get the raw HTML node
+    let inputElement = d3.select("#datetime");
 
-          // Use the form input to filter the data by blood type
-        function selectDate(date) {
-            return date.datetime === inputValue ;
-            };
-  
-         // filter() uses the custom function as its argument
-        let filterDate= tableData.filter(selectDate);
-        
-        // iterate through each entry in the data dictionary or "object"
-        filterDate.forEach(function(sighting){
+    // Get the value property of the input element
+    let inputValue = inputElement.property("value");
+
+        // Use the form input to filter the data by blood type
+    function selectDate(date) {
+        return date.datetime === inputValue ;
+        };
+
+    // filter() uses the custom function as its argument
+    let filterDate= tableData.filter(selectDate);
+    
+    // iterate through each entry in the data dictionary or "object"
+    filterDate.forEach(function(sighting){
 
         // create a variable for adding a row for later
         let row=tbody.append("tr");
@@ -51,3 +59,4 @@ function runEnter() {
         });
     })
 };
+
