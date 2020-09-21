@@ -22,7 +22,7 @@ form.on("submit",runEnter);
 // Complete the event handler function for the form
 function runEnter() {
 
-    let rows = d3.selectAll("tr");
+    let rows = d3.selectAll("tbody tr");
     rows.remove();
 
     // Prevent the page from refreshing
@@ -34,7 +34,7 @@ function runEnter() {
     // Get the value property of the input element
     let inputValue = inputElement.property("value");
 
-        // Use the form input to filter the data by blood type
+        // Use the form input to filter the data by date
     function selectDate(date) {
         return date.datetime === inputValue ;
         };
