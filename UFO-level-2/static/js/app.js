@@ -10,9 +10,14 @@ let form = d3.select("#form");
 // create a reference to the table body
 let tbody = d3.select("tbody");
 
+// create a reference to the table
+let table=d3.select("#ufo-table tr");
+
+
 // Create event handlers 
 button.on("click", runEnter);
 form.on("submit",runEnter);
+
 
 // Complete the event handler function for the form
 function runEnter() {
@@ -24,39 +29,43 @@ function runEnter() {
     d3.event.preventDefault() ;
 
     // Select the input element and get the raw HTML node
-    let inputDate = d3.select("#datetime");
-    let inputCity = d3.select("#city");
+    let inputDateElement = d3.select("#datetime");
+    let inputCityElement = d3.select("#city");
+    let inputStateElement = d3.select("#state");
+    let inputCountryElement = d3.select("#country");
+    let inputShapeElement = d3.select("#shape");
 
     // Get the value property of the input element
+    let inputDateValue = inputDateElement.property("value");
+    let inputCityValue = inputCityElement.property("value");
+    let inputStateValue = inputStateElement.property("value");
+    let inputCountryValue = inputCountryElement.property("value");
+    let inputShapeValue = inputShapeElement.property("value");
 
-    let dateValue = inputDate.property("value");
-    let cityValue = inputCity.property("value");
 
+        // Use the form input to filter the data by date
+    function filters(date) {
+        if (inputDateValue != "")
+            return date.datetime === inputDateValue
+    
+        if (inputCityValue != "") 
+            return date.city === inputCityValue
 
-    // Use the form input to filter the data by date
-    function selectDate(date) {
-        if (dateValue != " "){
-        return date.datetime === dateValue}};
+        if (inputStateValue != "") 
+            return date.state === inputStateValue
+    
+        if (inputCountryValue != "") 
+            return date.country === inputCountryValue
 
-    function selectCity(city) {
-        if (cityValue != " "){
-        return city.city === cityValue} };
+        if (inputShapeValue != "") 
+            return date.shape === inputShapeValue
+        };
 
-    // let filters=[selectDate, selectCity]
-
-    // function filtable(){
-
-    //     for (let filter of filters) {
-    //         if (filter="") 
-    //       }
-          
-        
-    // }
     // filter() uses the custom function as its argument
-    let filterTable= tableData.filter(selectDate);
+    let filterDate= tableData.filter(filters);
     
     // iterate through each entry in the data dictionary or "object"
-    filterTable.forEach(function(sighting){
+    filterDate.forEach(function(sighting){
 
         // create a variable for adding a row for later
         let row=tbody.append("tr");
@@ -72,3 +81,4 @@ function runEnter() {
         });
     })
 };
+
